@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
-
+import AddUser from './components/Users/AddUser';
+import UsersList from './components/Users/UsersList';
+import React,{useState} from 'react';
+import Wrapper from './Helper/Wrapper';
 function App() {
+  const [userList, setUserlist] = useState([]);
+
+  const onChangeSubmithandler = (uName, uAge) =>{
+    setUserlist((prevUserList) => {
+      return [...prevUserList, {id: Math.random().toString() ,name: uName, age: uAge  },
+      ];
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>   {/* Wrapper is getting the childrens and wrap them from the Wrapper.js file inside the helper*/}
+    
+
+    <AddUser onAdduser={onChangeSubmithandler}/>
+      
+    <UsersList users={userList}/>
+
+    </Wrapper>
   );
 }
 
